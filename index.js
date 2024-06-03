@@ -7,7 +7,8 @@ const path = require('path')
 app.use(express.static(path.join(__dirname)));
 
 app.get('/',(req,res)=>{
-    res.sendFile(__dirname+'/menu.html')
+    res.sendFile(__dirname+'/home.html')
+    
 })
 app.get('/home',(req,res)=>{
     console.log('home page calling');
