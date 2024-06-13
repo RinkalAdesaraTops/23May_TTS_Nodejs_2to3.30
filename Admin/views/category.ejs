@@ -38,16 +38,18 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="post" name="frm" action="cat/save">
+              <form method="post" name="frm" action=<%= (editcat)?"/cat/update/"+editcat.id:"/cat/save" %>>
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Category</label>
-                    <input type="text" name="catname" class="form-control" id="exampleInputEmail1" placeholder="Enter category" >
+                    <input type="text" name="catname" class="form-control" 
+                    value="<%= editcat ? editcat.name : '' %>"
+                    id="exampleInputEmail1" placeholder="Enter category" >
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary"><%= (editcat)?"Update":'Save'%></button>
                 </div>
               </form>
             </div>
@@ -74,8 +76,8 @@
                             <td><%= i.id %></td>
                             <td><%= i.name %></td>
                             <td>
-                                <a href="cat/edit">Edit</a>
-                                <a href="cat/delete/<%= i.id %>"><i class="fa fa-trash" style="color:red"></i></a>
+                                <a href="/cat/edit/<%= i.id %>">Edit</a>
+                                <a href="/cat/delete/<%= i.id %>"><i class="fa fa-trash" style="color:red"></i></a>
                             </td>
                         </tr>
                       <% })  %>

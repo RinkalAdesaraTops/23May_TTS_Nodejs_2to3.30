@@ -27,21 +27,44 @@ app.post('/cat/save',(req,res)=>{
         id:len+1,
         name:req.body.catname
     })
-    console.log(arr);
     res.redirect('/category')
 })
 app.get('/cat/delete/:id',(req,res)=>{
    let id = req.params.id;
-//    arr.splice(id-1,1)
    let data1 =  arr.filter((i)=>{
         return i.id != id
     })
     arr = data1;
     res.redirect('/category')
 })
+
+app.get('/cat/edit/:id',(req,res)=>{
+    let id = req.params.id;
+    console.log(id);
+    let data1 =  arr.filter((i)=>{
+            return i.id == id
+        })
+        res.render('category',{
+            "catdata":arr,
+            "editcat":data1[0]
+        })
+})
+app.post('/cat/update/:id',(req,res)=>{
+    let id = req.params.id;
+   const name = req.body.catname;
+   let arr_new = arr.map((i)=>{
+        if(i.id == id){
+            i.name = name;
+        }
+        return i;
+   })
+    
+   res.redirect("/category")
+})
 app.get('/category',(req,res)=>{
     res.render('category',{
-        "catdata":arr
+        "catdata":arr,
+        "editcat":""
     })
 })
 app.listen(4000,()=>{
