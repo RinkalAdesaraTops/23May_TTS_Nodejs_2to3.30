@@ -1,6 +1,19 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + path.extname(file.originalname)
+      cb(null, file.fieldname + uniqueSuffix)
+    }
+  })
+  
+  const upload = multer({ storage: storage })
 console.log(path.join(__dirname, 'views'));
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -9,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine','ejs')
 let arr = []
+let pr_arr = []
 app.get('/',(req,res)=>{
     res.render('home')
 })
@@ -66,6 +80,18 @@ app.get('/category',(req,res)=>{
         "catdata":arr,
         "editcat":""
     })
+})
+app.get('/product',(req,res)=>{
+    res.render('product',{
+        "prdata":pr_arr,
+        "editpr":"",
+        "catdata":arr
+    })
+})
+app.post('/pr/save',upload.single('image'),(req,res)=>{
+    let prname= req.body.prname;
+    console.log(prname);
+    
 })
 app.listen(4000,()=>{
     console.log("Listening on port 4000")
