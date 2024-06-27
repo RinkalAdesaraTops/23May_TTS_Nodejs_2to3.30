@@ -83,6 +83,7 @@
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>Product</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -90,7 +91,8 @@
                       <% prdata.map((i)=>{ %>
                         <tr>
                             <td><%= i.id %></td>
-                            <td><%= i.name %></td>
+                            <td><%= i.prname %></td>
+                            <td><img src="/uploads/<%= i.image%>" height="50px" width="50px" /></td>
                             <td>
                                 <a href="/pr/edit/<%= i.id %>">Edit</a>
                                 <a href="/pr/delete/<%= i.id %>"><i class="fa fa-trash" style="color:red"></i></a>

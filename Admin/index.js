@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const fs = require('fs')
 const multer  = require('multer')
 // const upload = multer({ dest: 'uploads/' })
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/')
+      cb(null, 'public/uploads/')
     },
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + path.extname(file.originalname)
@@ -82,6 +83,10 @@ app.get('/category',(req,res)=>{
     })
 })
 app.get('/product',(req,res)=>{
+    // pr_arr = pr_arr.map((i)=>{
+    //     i.image = path.join(__dirname, '/uploads/' +i.image);
+    //     return i;
+    // })
     res.render('product',{
         "prdata":pr_arr,
         "editpr":"",
@@ -89,10 +94,37 @@ app.get('/product',(req,res)=>{
     })
 })
 app.post('/pr/save',upload.single('image'),(req,res)=>{
-    let prname= req.body.prname;
-    console.log(prname);
-    
+    const {category,prname} = req.body
+    const image = req.file.filename
+    let len = pr_arr.length
+    pr_arr.push({
+        "id":len+1,
+        "category":category,
+        "prname":prname,
+        "image":image
+    })
+
+    res.redirect("/product")
 })
+
+app.get('/pr/delete/:id',(req,res)=>{
+    let id = req.params.id;
+    let data_image = pr_arr.find((i)=>{
+        return i.id == id
+    })
+    console.log(data_image);
+    let image1 = __dirname+'/public/uploads/'+data_image.image;
+    fs.unlinkSync(image1,(err)=>{
+        if(err) console.log(err);
+        console.log("Deleted successfully...");
+    })
+    let data1 =  pr_arr.filter((i)=>{
+         return i.id != id
+     })
+     pr_arr = data1;
+     res.redirect('/product')
+ })
+
 app.listen(4000,()=>{
     console.log("Listening on port 4000")
 })
