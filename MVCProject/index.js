@@ -8,6 +8,6 @@ app.get('/',(req,res)=>{
 app.use(express.urlencoded({ extended: true }));
 app.use('/user',UserRouter)
 
-app.listen(3000,()=>{
-    console.log('Listening to 3000 port');
+app.listen(4000,()=>{
+    console.log('Listening to 4000 port');
 })
