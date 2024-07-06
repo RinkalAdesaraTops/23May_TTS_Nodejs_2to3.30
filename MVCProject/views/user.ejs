@@ -16,6 +16,22 @@
         <input type="text" name="salary" id=""><br><br>
         <input type="submit" value="Save Data"><br><br>
     </form>
+    <table border="2">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Action</th>          
+        </tr>
+        <% userdata.map((i)=>{ %>
+            <tr>
+                <td><%= i._id %></td>
+                <td><%= i.name %></td>
+                <td><%= i.age%></td>
+                <td><a href="/user/delete/<%= i._id%>">Delete</a></td>
+            </tr>
+        <% }) %>
+    </table>
     
 </body>
 </html>

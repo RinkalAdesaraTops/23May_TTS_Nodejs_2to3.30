@@ -1,4 +1,4 @@
-const {MongoClient} = require('mongodb')
+const {MongoClient, ObjectId} = require('mongodb')
 
 const client = new MongoClient("mongodb://localhost:27017/")
 const dbname = "empdb";
@@ -14,6 +14,18 @@ main()
  const dispData = async()=>{
     const collection = db.collection('emp');
     const findResult = await collection.find({}).toArray();
-    return findResult
+    return findResult;
 } 
-module.exports = dispData
+
+const insertData = async(data)=>{
+    const collection = db.collection('emp');
+    const findResult = await collection.insertOne(data);
+    return findResult;
+}
+const deleteUser = async(id)=>{
+    const collection = db.collection('emp');
+    const findResult = await collection.deleteOne({_id:new ObjectId(id)});
+    return findResult;
+
+}
+module.exports = {dispData,insertData,deleteUser}
