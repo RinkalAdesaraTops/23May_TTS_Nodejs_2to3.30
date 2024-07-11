@@ -7,14 +7,15 @@
 </head>
 <body>
     <h1>My User Page</h1>
-    <form action="/user/savedata" method="post">
+    <form action="<%= userDetail != '' ?'/user/updatedata':'/user/savedata'%>" method="post">
+        <input type="hidden" name="id" value="<%= userDetail != '' ?userDetail._id:'' %>">
         <label for="">Name:</label>
-        <input type="text" name="name" id=""><br><br>
+        <input type="text" name="name" id="" value="<%= (userDetail != '')? userDetail.name:''%>"><br><br>
         <label for="">Age:</label>
-        <input type="text" name="age" id=""><br><br>
+        <input type="text" name="age" id="" value="<%= (userDetail != '')? userDetail.age:''%>"><br><br>
         <label for="">Salary:</label>
-        <input type="text" name="salary" id=""><br><br>
-        <input type="submit" value="Save Data"><br><br>
+        <input type="text" name="salary" id="" value="<%= (userDetail != '')? userDetail.salary:''%>"><br><br>
+        <input type="submit" value="<%= userDetail != '' ?'Update Data':'Save Data'%>"><br><br>
     </form>
     <table border="2">
         <tr>
@@ -28,7 +29,7 @@
                 <td><%= i._id %></td>
                 <td><%= i.name %></td>
                 <td><%= i.age%></td>
-                <td><a href="/user/delete/<%= i._id%>">Delete</a></td>
+                <td><a href="/user/edit/<%= i._id%>">Edit</a> <a href="/user/delete/<%= i._id%>">Delete</a></td>
             </tr>
         <% }) %>
     </table>
