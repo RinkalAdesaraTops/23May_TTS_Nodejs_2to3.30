@@ -11,7 +11,7 @@ const main = async()=>{
 }
 main()
 
- const dispData = async()=>{
+const dispData = async()=>{
     const collection = db.collection('emp');
     const findResult = await collection.find({}).toArray();
     return findResult;

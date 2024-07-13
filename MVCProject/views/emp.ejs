@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>My emp Page</h1>
+    <form action="<%= empDetail != '' ?'/emp/updatedata':'/emp/savedata'%>" method="post">
+        <input type="hidden" name="id" value="<%= empDetail != '' ?empDetail._id:'' %>">
+        <label for="">Name:</label>
+        <input type="text" name="name" id="" value="<%= (empDetail != '')? empDetail.name:''%>"><br><br>
+        <label for="">Email:</label>
+        <input type="email" name="email" id="" value="<%= (empDetail != '')? empDetail.email:''%>"><br><br>
+        <label for="">Password:</label>
+        <input type="password" name="password" id="" value="<%= (empDetail != '')? empDetail.password:''%>"><br><br>
+        <input type="submit" value="<%= empDetail != '' ?'Update Data':'Save Data'%>"><br><br>
+    </form>
+    <table border="2">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>          
+        </tr>
+        <% empdata.map((i)=>{ %>
+            <tr>
+                <td><%= i._id %></td>
+                <td><%= i.name %></td>
+                <td><%= i.email%></td>
+                <td><a href="/emp/edit/<%= i._id%>">Edit</a> <a href="/emp/delete/<%= i._id%>">Delete</a></td>
+            </tr>
+        <% }) %>
+    </table>
+    
+</body>
+</html>
