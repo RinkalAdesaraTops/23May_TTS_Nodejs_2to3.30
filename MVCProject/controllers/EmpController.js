@@ -3,6 +3,7 @@ const {dispData,insertData,deleteEmp,editEmp,updData} = require("../models/EmpMo
 const myform = async(req,res)=>{
     let empdata = await dispData()
     let empDetail = ''
+    // return res.json("data",empdata)
     res.render('emp',{
         empdata,
         empDetail

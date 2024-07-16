@@ -1,0 +1,26 @@
+{{> header}}
+    {{#each myarray}}
+        <h4>{{this}}</h4>
+    {{/each}}
+    {{myarray}}
+    <ul>
+       Id is --  {{myobj.id}}
+       Name is --  {{myobj.name}}
+    </ul>
+    <table border="2">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Salary</th>
+        </tr>
+        {{#each arrobj}}
+           <tr>
+                <td>{{this.name}} </td>
+                <td>{{this.id}} </td>
+                <td>{{this.age}} </td>
+                <td>{{this.salary}} </td>
+            </tr>
+        {{/each}}
+    </table>
+ {{> footer}}
