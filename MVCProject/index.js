@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 const UserRouter = require('./routes/UserRouter')
 const EmpRouter = require('./routes/EmpRoutes')
+const ApiRouter = require('./routes/ApiRoutes')
 const hbs = require('hbs')
 const path = require('path')
 // app.set('view engine','ejs')
@@ -12,6 +13,7 @@ app.get('/',(req,res)=>{
 app.use(express.urlencoded({ extended: true }));
 app.use('/user',UserRouter)
 app.use('/emp',EmpRouter)
+app.use('/api',ApiRouter)
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 const arr = [10,20,30,40,40]
 const obj = {

@@ -1,0 +1,10 @@
+var express = require('express')
+const router = express.Router()
+const {myform,mypostform,deleteData,updateData,editData}  = require('../controllers/UserApiController')
+// const bodyParser = require('body-parser')
+router.get('/form',myform)
+router.post('/savedata',mypostform)
+router.delete('/delete/:id',deleteData)
+router.put('/updatedata',updateData)
+router.patch('/edit/:id',editData)
+module.exports = router
