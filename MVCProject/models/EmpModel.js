@@ -6,7 +6,15 @@ mongoose.connect("mongodb://localhost:27017/empdb", {
  });
 
  const EmpSchema = {
-    name:String,
+    name:{
+        type:String,
+        required: true
+    },
+    rollno:{
+        type:Number,
+        required:true,
+        unique:true
+    },
     email: String,
     password: String
  }
