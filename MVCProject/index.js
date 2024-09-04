@@ -3,12 +3,16 @@ var app = express()
 const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-
+const dotenv = require('dotenv')
 const UserRouter = require('./routes/UserRouter')
 const EmpRouter = require('./routes/EmpRoutes')
 const ApiRouter = require('./routes/ApiRoutes')
 const hbs = require('hbs')
 const path = require('path')
+dotenv.config();
+
+
+let PORT = process.env.PORT || 5012;
 app.set('view engine','ejs')
 // app.set('view engine','hbs')
 app.get('/',(req,res)=>{
@@ -107,7 +111,9 @@ app.get("/testhbs",(req,res)=>{
         arrobj:arr_obj
     })
 })
+console.log(process.env.PORT);
+console.log(process.env.JWT_SECRET_KEY);
 
-app.listen(4000,()=>{
-    console.log('Listening to 4000 port');
+app.listen(PORT,()=>{
+    console.log('Listening to 5000 port');
 })

@@ -1,21 +1,47 @@
 const http = require('http')
 const {add,minus} = require('./calc.js')
 const express = require('express')
+const jwt = require('jsonwebtoken');
 const app = express()
 const path = require('path')
+const authRoutes = require('./routes/auth.js')
 
+app.set('view engine','ejs')
 app.use(express.static(path.join(__dirname)));
-
-app.get('/',(req,res)=>{
-    res.sendFile(__dirname+'/home.html')
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/',authRoutes)
+// app.get('/',(req,res)=>{
+//     res.sendFile(__dirname+'/home.html')
     
+// })
+function verifyToken(req, res, next) {
+    const token = req.header('Authorization');
+    console.log(token);
+    let t = token.split(" ")
+    if (!token) return res.status(401).json({ error: 'Access denied' });
+    try {
+     const decoded = jwt.verify(t[1], 'abc@123');
+     req.userId = decoded.userId;
+     res.status(200).json({ msg: 'verified token' });
+
+     next();
+     } catch (error) {
+     res.status(401).json({ error: 'Invalid token' });
+     }
+};
+app.get('/login',(req,res)=>{
+    res.render('login')    
 })
-app.get('/home',(req,res)=>{
+app.get('/register',(req,res)=>{
+    res.render('register')    
+})
+app.get('/home',verifyToken,(req,res)=>{
     console.log('home page calling');
     console.log(__dirname);
     res.sendFile(__dirname+'/home.html')
 })
-app.get('/about',(req,res)=>{
+app.get('/about',verifyToken,(req,res)=>{
     res.sendFile(__dirname+'/about.html')
 })
 app.listen(5000,()=>{
